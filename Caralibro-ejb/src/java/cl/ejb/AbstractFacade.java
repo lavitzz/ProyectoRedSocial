@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ea.ejb;
+package cl.ejb;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -12,14 +12,13 @@ import javax.persistence.EntityManager;
  *
  * @author lavitz
  */
-
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
-    
+
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-    
+
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
@@ -32,7 +31,6 @@ public abstract class AbstractFacade<T> {
 
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
-
     }
 
     public T find(Object id) {
@@ -61,4 +59,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
+    
 }
