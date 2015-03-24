@@ -6,9 +6,11 @@
 package cl.ejb;
 
 import cl.entity.Post;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,17 @@ public class PostFacade extends AbstractFacade<Post> {
 
     public PostFacade() {
         super(Post.class);
+    }
+    
+    public List<Post> findPostbyAuthorID (String id) {
+        Query q;
+        List<Post> listaPosts;        
+        
+        q = em.createQuery("SELECT p FROM POST p WHERE p.getAutor.getIdUsuario = :id");
+        q.setParameter("author", id);
+        listaPosts = q.getResultList();
+        return listaPosts;
+        
     }
     
 }
