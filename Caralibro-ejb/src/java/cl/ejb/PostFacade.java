@@ -39,6 +39,7 @@ public class PostFacade extends AbstractFacade<Post> {
         listaPosts = q.getResultList();
         return listaPosts;
         //Estamos en test
+        //mierda ya
     }
     
 }
