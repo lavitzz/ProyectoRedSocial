@@ -6,6 +6,7 @@
 package cl.ejb;
 
 import cl.entity.Post;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,12 +35,10 @@ public class PostFacade extends AbstractFacade<Post> {
         Query q;
         List<Post> listaPosts;        
         
-        q = em.createQuery("SELECT p FROM POST p WHERE p.getAutor.getIdUsuario = :id");
-        q.setParameter("author", id);
+        q = em.createQuery("SELECT p FROM Post p WHERE p.autor.idUsuario = :id");
+        q.setParameter("id", new BigDecimal(id));
         listaPosts = q.getResultList();
         return listaPosts;
-        //Estamos en test
-        //mierda ya
     }
     
 }
