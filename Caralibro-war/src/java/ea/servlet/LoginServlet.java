@@ -5,12 +5,11 @@
  */
 package ea.servlet;
 
-import cl.ejb.PostFacade;
-import cl.entity.Post;
+import cl.ejb.UsuarioFacade;
+import cl.entity.Usuario;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +21,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author lavitz
  */
-@WebServlet(name = "listadoPostPersonal", urlPatterns = {"/listadoPostPersonal"})
-public class ListadoPostPServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+public class LoginServlet extends HttpServlet {
     @EJB
-    private PostFacade postFacade;
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,18 +38,24 @@ public class ListadoPostPServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            String id;
-            List<Post> listaPosts;
-            HttpSession sesion = request.getSession();
-            
-            id = (String) sesion.getAttribute("idusuario");
-            listaPosts = this.postFacade.findPostbyAuthorID(id);
-            request.setAttribute("listaP", listaPosts);
-            
-            RequestDispatcher rd;
-            rd = this.getServletContext().getRequestDispatcher("/listaPostPersonal.jsp");
-            rd.forward(request, response);        
+        HttpSession sesion = request.getSession();
+        Usuario usu;
+        String usuario, password;
+        
+        usuario = request.getParameter("user");
+        password = request.getParameter("password");
+        usu = this.usuarioFacade.compruebaUsuario(usuario, password);
+        if(usu!=null){
+            String usuid = usu.getIdUsuario().toString();
+            sesion.setAttribute("idusuario", usuid);
+            sesion.setAttribute("usuario", usuario);
+            response.sendRedirect("/Caralibro-war/listadoPostPersonal");
         }
+        else{
+            
+        }
+        
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -65,6 +70,7 @@ public class ListadoPostPServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+               
     }
 
     /**

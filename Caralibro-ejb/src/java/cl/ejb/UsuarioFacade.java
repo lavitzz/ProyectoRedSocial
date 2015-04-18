@@ -6,9 +6,11 @@
 package cl.ejb;
 
 import cl.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,22 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
     public UsuarioFacade() {
         super(Usuario.class);
+    }
+    
+    public Usuario compruebaUsuario(String email, String pass){
+        Query q;
+        List<Usuario> listaU;
+        
+        q = em.createQuery("SELECT u FROM Usuario u WHERE u.correo = :email AND u.password = :pass");
+        q.setParameter("email", email);
+        q.setParameter("pass", pass);
+        listaU = q.getResultList();
+        if (!listaU.isEmpty()){
+            return listaU.get(0);
+        }
+        else{
+            return null;
+        }
     }
     
 }
