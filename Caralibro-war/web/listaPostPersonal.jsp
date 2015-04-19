@@ -14,24 +14,49 @@
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Muro Personal</title>
     </head>
     <body>
-        <table>
-            <%                
+        <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Insertar Post...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Insertar</button>
+                            </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        <%                
                 for (Post c:lista) {
-            %>        
-            <tr>
-                <td><%= c.getTitulo() %> </td>
-                <td><%= c.getTexto()%> </td>                
-            </tr>            
-            <%
+        %>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><%= c.getTitulo() %></h3>
+            </div>
+            <div class="panel-body">
+                <%= c.getTexto()%>
+            </div>
+        </div>
+        <%
                 }
-            %>       
+        %>     
         </table>
+        </div>
+        <div class="col-md-4">
+            AMIGOS
+        
+        </div>
+
+        </div>
+        
 
     </body>
 </html>
