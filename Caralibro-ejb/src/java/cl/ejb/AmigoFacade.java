@@ -6,9 +6,12 @@
 package cl.ejb;
 
 import cl.entity.Amigo;
+import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +29,16 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
 
     public AmigoFacade() {
         super(Amigo.class);
+    }
+    
+    public List<BigDecimal> findFriendsByID(BigDecimal id){
+        Query q;
+        List<BigDecimal> listaAmigos;        
+        
+        q = em.createQuery("SELECT ID_AMIGO FROM Amigo a WHERE a.ID_USUARIO = :id");
+        q.setParameter("id", id);
+        listaAmigos = q.getResultList();
+        return listaAmigos;
     }
     
 }
