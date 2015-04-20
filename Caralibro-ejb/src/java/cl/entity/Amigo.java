@@ -7,6 +7,7 @@ package cl.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Amigo.findAll", query = "SELECT a FROM Amigo a"),
-    @NamedQuery(name = "Amigo.findByIdAmigo", query = "SELECT a FROM Amigo a WHERE a.idAmigo = :idAmigo")})
+    @NamedQuery(name = "Amigo.findByIdAmigo", query = "SELECT a FROM Amigo a WHERE a.idAmigo = :idAmigo"),
+    @NamedQuery(name = "Amigo.findByConfirmado", query = "SELECT a FROM Amigo a WHERE a.confirmado = :confirmado")})
 public class Amigo implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -37,6 +39,8 @@ public class Amigo implements Serializable {
     @NotNull
     @Column(name = "ID_AMIGO")
     private BigDecimal idAmigo;
+    @Column(name = "CONFIRMADO")
+    private BigInteger confirmado;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
@@ -54,6 +58,14 @@ public class Amigo implements Serializable {
 
     public void setIdAmigo(BigDecimal idAmigo) {
         this.idAmigo = idAmigo;
+    }
+
+    public BigInteger getConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(BigInteger confirmado) {
+        this.confirmado = confirmado;
     }
 
     public Usuario getIdUsuario() {

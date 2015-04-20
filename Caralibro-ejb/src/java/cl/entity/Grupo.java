@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -49,6 +51,9 @@ public class Grupo implements Serializable {
     private Grupousuarios grupousuarios;
     @OneToMany(mappedBy = "grupo")
     private Collection<Post> postCollection;
+    @JoinColumn(name = "ADMINISTRADOR", referencedColumnName = "ID_USUARIO")
+    @ManyToOne(optional = false)
+    private Usuario administrador;
 
     public Grupo() {
     }
@@ -88,6 +93,14 @@ public class Grupo implements Serializable {
 
     public void setPostCollection(Collection<Post> postCollection) {
         this.postCollection = postCollection;
+    }
+
+    public Usuario getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Usuario administrador) {
+        this.administrador = administrador;
     }
 
     @Override
