@@ -4,6 +4,9 @@
     Author     : lavitz
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="cl.entity.Usuario"%>
 <%@page import="cl.entity.Post"%>
 <%@page import="java.util.List"%>
@@ -38,10 +41,21 @@
                     </form>
                 </div><!-- /.col-lg-6 -->
             </div><!-- /.row -->
-        <%                
-                for (Post c:lista) {
+        <%          
+                for (Post p:lista) {
+                    Date d = p.getFecha();
+                    DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+                    DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
+                    String fecha = "Fecha: " + formatoFecha.format(d) + " Hora: " + formatoHora.format(d);
         %>
-        <div class="well"><%= c.getTexto() %></div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h5 class="panel-title">Autor: <%= p.getAutor().getNombre() %> <%= fecha %></h5>
+            </div>
+            <div class="panel-body">
+                <%= p.getTexto()%>
+            </div>
+        </div>
         <%
                 }
         %>     
