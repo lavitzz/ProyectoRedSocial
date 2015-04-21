@@ -41,14 +41,7 @@
         <%                
                 for (Post c:lista) {
         %>
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><%= c.getTitulo() %></h3>
-            </div>
-            <div class="panel-body">
-                <%= c.getTexto()%>
-            </div>
-        </div>
+        <div class="well"><%= c.getTexto() %></div>
         <%
                 }
         %>     

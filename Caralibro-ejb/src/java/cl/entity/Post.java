@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p"),
     @NamedQuery(name = "Post.findByIdPost", query = "SELECT p FROM Post p WHERE p.idPost = :idPost"),
-    @NamedQuery(name = "Post.findByTitulo", query = "SELECT p FROM Post p WHERE p.titulo = :titulo"),
     @NamedQuery(name = "Post.findByFecha", query = "SELECT p FROM Post p WHERE p.fecha = :fecha"),
     @NamedQuery(name = "Post.findByTexto", query = "SELECT p FROM Post p WHERE p.texto = :texto")})
 public class Post implements Serializable {
@@ -44,9 +43,6 @@ public class Post implements Serializable {
     @NotNull
     @Column(name = "ID_POST")
     private BigDecimal idPost;
-    @Size(max = 20)
-    @Column(name = "TITULO")
-    private String titulo;
     @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
@@ -73,14 +69,6 @@ public class Post implements Serializable {
 
     public void setIdPost(BigDecimal idPost) {
         this.idPost = idPost;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 
     public Date getFecha() {

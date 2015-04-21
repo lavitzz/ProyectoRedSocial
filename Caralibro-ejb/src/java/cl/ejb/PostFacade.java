@@ -62,11 +62,12 @@ public class PostFacade extends AbstractFacade<Post> {
         user = (Usuario) q.getSingleResult();
         p.setAutor(user);
         p.setFecha(fechaActual);
-        q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = :idgrupo");
-        q.setParameter("idgrupo", idgrupo);
+        q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = 0");
+        //q.setParameter("idgrupo", idgrupo);
         g = (Grupo) q.getSingleResult();
         p.setTexto(texto);
-        p.setTitulo("jojojo");
+        em.persist(p);
+        em.getTransaction().commit();
         
     }
     
