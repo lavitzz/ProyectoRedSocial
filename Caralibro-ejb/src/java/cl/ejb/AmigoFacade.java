@@ -40,7 +40,7 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         //SELECT * FROM USUARIO WHERE ID_USUARIO IN (SELECT ID_AMIGO FROM AMIGO WHERE ID_USUARIO = 1)
         //q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario IN (SELECT a.idUsuario FROM Amigo a WHERE a.idUsuario = :id)");
         //q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigo a WHERE a.usuario.idUsuario = :id");
-        q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigoCollection a WHERE a.amigoPK = :id");
+        q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigoCollection a WHERE a.amigoPK.idAmigo = :id");
         q.setParameter("id", new BigDecimal(id));
         listaAmigos = q.getResultList();
         return listaAmigos;
