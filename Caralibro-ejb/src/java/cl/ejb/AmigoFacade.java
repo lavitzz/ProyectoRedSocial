@@ -6,6 +6,7 @@
 package cl.ejb;
 
 import cl.entity.Amigo;
+import cl.entity.Usuario;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -31,12 +32,16 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         super(Amigo.class);
     }
     
-    public List<BigDecimal> findFriendsByID(BigDecimal id){
+    public List<Usuario> findFriendsByID(String id){
         Query q;
-        List<BigDecimal> listaAmigos;        
+        List<Usuario> listaAmigos;        
         
-        q = em.createQuery("SELECT ID_AMIGO FROM Amigo a WHERE a.ID_USUARIO = :id");
-        q.setParameter("id", id);
+        //q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :id");
+        //SELECT * FROM USUARIO WHERE ID_USUARIO IN (SELECT ID_AMIGO FROM AMIGO WHERE ID_USUARIO = 1)
+        //q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario IN (SELECT a.idUsuario FROM Amigo a WHERE a.idUsuario = :id)");
+        //q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigo a WHERE a.usuario.idUsuario = :id");
+        q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigoCollection a WHERE a.amigoPK = :id");
+        q.setParameter("id", new BigDecimal(id));
         listaAmigos = q.getResultList();
         return listaAmigos;
     }

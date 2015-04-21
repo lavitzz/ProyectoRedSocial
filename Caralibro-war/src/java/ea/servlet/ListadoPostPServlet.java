@@ -5,8 +5,10 @@
  */
 package ea.servlet;
 
+import cl.ejb.AmigoFacade;
 import cl.ejb.PostFacade;
 import cl.entity.Post;
+import cl.entity.Usuario;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -25,7 +27,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "listadoPostPersonal", urlPatterns = {"/listadoPostPersonal"})
 public class ListadoPostPServlet extends HttpServlet {
     @EJB
+    private AmigoFacade amigoFacade;
+    @EJB
     private PostFacade postFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,11 +46,15 @@ public class ListadoPostPServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
             String id;
             List<Post> listaPosts;
+            List<Usuario> listaAmigos;
             HttpSession sesion = request.getSession();
             
             id = (String) sesion.getAttribute("idusuario");
             listaPosts = this.postFacade.findPostbyAuthorID(id);
             request.setAttribute("listaP", listaPosts);
+            
+            listaAmigos = this.amigoFacade.findFriendsByID(id);
+            request.setAttribute("listaA", listaAmigos);
             
             RequestDispatcher rd;
             rd = this.getServletContext().getRequestDispatcher("/listaPostPersonal.jsp");

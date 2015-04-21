@@ -4,12 +4,15 @@
     Author     : lavitz
 --%>
 
+<%@page import="cl.entity.Usuario"%>
 <%@page import="cl.entity.Post"%>
 <%@page import="java.util.List"%>
 <%
     List<Post> lista;
-    
     lista = (List)request.getAttribute("listaP");
+    
+    List<Usuario> listaUsuario;
+    listaUsuario = (List)request.getAttribute("listaA");
     
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,7 +25,6 @@
         <title>Muro Personal</title>
     </head>
     <body>
-        <div class="row">
         <div class="col-md-8">
             <div class="row">
                 <div class="col-lg-6">
@@ -51,12 +53,17 @@
         </table>
         </div>
         <div class="col-md-4">
-            AMIGOS
-        
+            <h2>AMIGOS</h2>
+            
+            <%
+                for (Usuario u:listaUsuario) {
+            %>
+            
+            <h4> <%= u.getNombre() %> </h4>
+            
+            <%
+                }
+            %>   
         </div>
-
-        </div>
-        
-
     </body>
 </html>

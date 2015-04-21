@@ -13,13 +13,10 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -48,8 +45,6 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USUARIO")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "MYNOTIFSEQ_USUARIO")
-    @SequenceGenerator(name="MYNOTIFSEQ_USUARIO", sequenceName = "SEQ_USUARIO", allocationSize = 1)
     private BigDecimal idUsuario;
     @Size(max = 20)
     @Column(name = "NOMBRE")
@@ -75,8 +70,10 @@ public class Usuario implements Serializable {
     private Collection<Post> postCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "administrador")
     private Collection<Grupo> grupoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Collection<Amigo> amigoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario1")
+    private Collection<Amigo> amigoCollection1;
 
     public Usuario() {
     }
@@ -173,6 +170,15 @@ public class Usuario implements Serializable {
 
     public void setAmigoCollection(Collection<Amigo> amigoCollection) {
         this.amigoCollection = amigoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Amigo> getAmigoCollection1() {
+        return amigoCollection1;
+    }
+
+    public void setAmigoCollection1(Collection<Amigo> amigoCollection1) {
+        this.amigoCollection1 = amigoCollection1;
     }
 
     @Override

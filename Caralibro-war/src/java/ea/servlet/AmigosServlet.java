@@ -6,9 +6,13 @@
 package ea.servlet;
 
 import cl.ejb.AmigoFacade;
+import cl.entity.Amigo;
+import cl.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,9 +42,17 @@ public class AmigosServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String id;
+        List<Usuario> listaAmigos;
         
         HttpSession sesion = request.getSession();
         id = (String) sesion.getAttribute("idusuario");
+        
+        listaAmigos = this.amigoFacade.findFriendsByID(id);
+        request.setAttribute("listaA", listaAmigos);
+
+        RequestDispatcher rd;
+        rd = this.getServletContext().getRequestDispatcher("/listaPostPersonal.jsp");
+        rd.forward(request, response);      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

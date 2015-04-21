@@ -6,18 +6,15 @@
 package cl.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,35 +26,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Amigo.findAll", query = "SELECT a FROM Amigo a"),
-    @NamedQuery(name = "Amigo.findByIdAmigo", query = "SELECT a FROM Amigo a WHERE a.idAmigo = :idAmigo"),
+    @NamedQuery(name = "Amigo.findByIdAmigo", query = "SELECT a FROM Amigo a WHERE a.amigoPK.idAmigo = :idAmigo"),
+    @NamedQuery(name = "Amigo.findByIdUsuario", query = "SELECT a FROM Amigo a WHERE a.amigoPK.idUsuario = :idUsuario"),
     @NamedQuery(name = "Amigo.findByConfirmado", query = "SELECT a FROM Amigo a WHERE a.confirmado = :confirmado")})
 public class Amigo implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_AMIGO")
-    private BigDecimal idAmigo;
+    @EmbeddedId
+    protected AmigoPK amigoPK;
     @Column(name = "CONFIRMADO")
     private BigInteger confirmado;
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Usuario idUsuario;
+    private Usuario usuario;
+    @JoinColumn(name = "ID_AMIGO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Usuario usuario1;
 
     public Amigo() {
     }
 
-    public Amigo(BigDecimal idAmigo) {
-        this.idAmigo = idAmigo;
+    public Amigo(AmigoPK amigoPK) {
+        this.amigoPK = amigoPK;
     }
 
-    public BigDecimal getIdAmigo() {
-        return idAmigo;
+    public Amigo(BigInteger idAmigo, BigInteger idUsuario) {
+        this.amigoPK = new AmigoPK(idAmigo, idUsuario);
     }
 
-    public void setIdAmigo(BigDecimal idAmigo) {
-        this.idAmigo = idAmigo;
+    public AmigoPK getAmigoPK() {
+        return amigoPK;
+    }
+
+    public void setAmigoPK(AmigoPK amigoPK) {
+        this.amigoPK = amigoPK;
     }
 
     public BigInteger getConfirmado() {
@@ -68,18 +69,26 @@ public class Amigo implements Serializable {
         this.confirmado = confirmado;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Usuario getUsuario1() {
+        return usuario1;
+    }
+
+    public void setUsuario1(Usuario usuario1) {
+        this.usuario1 = usuario1;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idAmigo != null ? idAmigo.hashCode() : 0);
+        hash += (amigoPK != null ? amigoPK.hashCode() : 0);
         return hash;
     }
 
@@ -90,7 +99,7 @@ public class Amigo implements Serializable {
             return false;
         }
         Amigo other = (Amigo) object;
-        if ((this.idAmigo == null && other.idAmigo != null) || (this.idAmigo != null && !this.idAmigo.equals(other.idAmigo))) {
+        if ((this.amigoPK == null && other.amigoPK != null) || (this.amigoPK != null && !this.amigoPK.equals(other.amigoPK))) {
             return false;
         }
         return true;
@@ -98,7 +107,7 @@ public class Amigo implements Serializable {
 
     @Override
     public String toString() {
-        return "cl.entity.Amigo[ idAmigo=" + idAmigo + " ]";
+        return "cl.entity.Amigo[ amigoPK=" + amigoPK + " ]";
     }
     
 }
