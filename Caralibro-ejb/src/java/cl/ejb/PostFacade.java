@@ -5,8 +5,13 @@
  */
 package cl.ejb;
 
+import cl.entity.Grupo;
 import cl.entity.Post;
+import cl.entity.Usuario;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,6 +44,30 @@ public class PostFacade extends AbstractFacade<Post> {
         q.setParameter("id", new BigDecimal(id));
         listaPosts = q.getResultList();
         return listaPosts;
+    }
+    
+    public void insertaPostbyAuthorID (String id, String texto){
+        Query q;
+        Usuario user;
+        Grupo g;
+        String idgrupo = "0";
+        Date fechaActual = new Date();
+        DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss,000000000");
+        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
+        String fecha = formatoFecha.format(fechaActual) + formatoHora.format(fechaActual);
+        
+        Post p = new Post();
+        q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :id");
+        q.setParameter("id", new BigDecimal(id));
+        user = (Usuario) q.getSingleResult();
+        p.setAutor(user);
+        p.setFecha(fechaActual);
+        q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = :idgrupo");
+        q.setParameter("idgrupo", idgrupo);
+        g = (Grupo) q.getSingleResult();
+        p.setTexto(texto);
+        p.setTitulo("jojojo");
+        
     }
     
 }

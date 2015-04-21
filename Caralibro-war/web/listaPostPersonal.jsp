@@ -28,12 +28,14 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Insertar Post...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Insertar</button>
-                            </span>
-                    </div><!-- /input-group -->
+                    <form action="PostCreateServlet" method="post">
+                        <div class="input-group">
+                            <input type="text" name="textoP" class="form-control" placeholder="Insertar Post...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">Insertar</button>
+                                </span>
+                        </div><!-- /input-group -->
+                    </form>
                 </div><!-- /.col-lg-6 -->
             </div><!-- /.row -->
         <%                
