@@ -5,8 +5,7 @@
  */
 package ea.servlet;
 
-import cl.ejb.PostFacade;
-import cl.entity.Post;
+import cl.ejb.AmigoFacade;
 import cl.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,10 +21,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author lavitz
  */
-@WebServlet(name = "PostCreateServlet", urlPatterns = {"/PostCreateServlet"})
-public class PostCreateServlet extends HttpServlet {
+@WebServlet(name = "InvitarAmigoServlet", urlPatterns = {"/InvitarAmigoServlet"})
+public class InvitarAmigoServlet extends HttpServlet {
     @EJB
-    private PostFacade postFacade;
+    private AmigoFacade amigoFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,14 +39,21 @@ public class PostCreateServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
-        String id, textoPost;
-        Post p;
+        Usuario usu;
+        String usuario, password;
         
-        id = (String) sesion.getAttribute("idusuario");
-        textoPost = request.getParameter("textoP");
-        p = this.postFacade.insertaPostbyAuthorID(id, textoPost);
-        this.postFacade.create(p);
-        response.sendRedirect("/Caralibro-war/listadoPostPersonal");
+        usuario = request.getParameter("user");
+        password = request.getParameter("password");
+        /*usu = this.amigoFacade
+        if(usu!=null){
+            String usuid = usu.getIdUsuario().toString();
+            sesion.setAttribute("idusuario", usuid);
+            sesion.setAttribute("usuario", usuario);
+            response.sendRedirect("/Caralibro-war/listadoPostPersonal");
+        }
+        else{
+            
+        }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

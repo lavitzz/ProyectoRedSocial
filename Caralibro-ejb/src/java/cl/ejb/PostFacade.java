@@ -44,7 +44,7 @@ public class PostFacade extends AbstractFacade<Post> {
         return listaPosts;
     }
     
-    public void insertaPostbyAuthorID (String id, String texto){
+    public Post insertaPostbyAuthorID (String id, String texto){
         Query q;
         Usuario user;
         Grupo g;
@@ -55,7 +55,7 @@ public class PostFacade extends AbstractFacade<Post> {
         //DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
         //String fecha = formatoFecha.format(fechaActual);
         
-        Post p = new Post(new BigDecimal("3"));
+        Post p = new Post(new BigDecimal("4"));
         q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :id");
         q.setParameter("id", new BigDecimal(id));
         user = (Usuario) q.getSingleResult();
@@ -66,8 +66,7 @@ public class PostFacade extends AbstractFacade<Post> {
         g = (Grupo) q.getSingleResult();
         p.setGrupo(g);
         p.setTexto(texto);
-        em.persist(p);
-        em.getTransaction().commit();
+        return p;
         /*q = em.createNativeQuery("INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '2007-08-08,09', 'hola', 1, 0);");
         q.executeUpdate();
         //INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '2007-08-08,09', 'hola', 1, 0);
