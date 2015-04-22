@@ -48,21 +48,17 @@ public class PostFacade extends AbstractFacade<Post> {
         Query q;
         Usuario user;
         Grupo g;
-        String idgrupo = "0";
-        
         Date fechaActual = new Date();
-        //DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss,000000000");
-        //DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
-        //String fecha = formatoFecha.format(fechaActual);
+        BigDecimal idd = new BigDecimal(id);
         
-        Post p = new Post(new BigDecimal("4"));
+        Post p = new Post();
         q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :id");
         q.setParameter("id", new BigDecimal(id));
         user = (Usuario) q.getSingleResult();
         p.setAutor(user);
         p.setFecha(fechaActual);
+        //SIEMPRE GRUPO 0
         q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = 0");
-        //q.setParameter("idgrupo", idgrupo);
         g = (Grupo) q.getSingleResult();
         p.setGrupo(g);
         p.setTexto(texto);
