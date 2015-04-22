@@ -62,7 +62,7 @@
         </table>
         </div>
         <div class="col-md-4">
-            <h2>AMIGOS</h2>
+            <h3><span class="label label-primary">AMIGOS</span></h3>
             
             <%
                 for (Usuario u:listaUsuario) {
@@ -74,5 +74,13 @@
                 }
             %>   
         </div>
+        <form action="InvitaAmigo" method="post">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Agregar Amigo">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Agregar!</button>
+                    </span>
+            </div>
+        </form>
     </body>
 </html>
