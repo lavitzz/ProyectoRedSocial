@@ -57,7 +57,7 @@ public class PostFacade extends AbstractFacade<Post> {
         user = (Usuario) q.getSingleResult();
         p.setAutor(user);
         p.setFecha(fechaActual);
-        //SIEMPRE GRUPO 0 prueba
+        //SIEMPRE GRUPO 0 prue
         q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = 0");
         g = (Grupo) q.getSingleResult();
         p.setGrupo(g);
