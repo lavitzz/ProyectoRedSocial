@@ -58,7 +58,9 @@
                         <button type="submit" class="btn btn-default">Buscar</button>
                       </form>
                       <ul class="nav navbar-nav navbar-right">
-                          <a href="http://localhost:8080/Caralibro-war/"><button type="button" class="btn btn-danger navbar-btn">Salir</button></a>
+                            <form action="LogOutServlet" method="post">      
+                                <button class="btn btn-danger" type="submit">Salir</button>  
+                            </form>
                       </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container-fluid -->
@@ -98,25 +100,7 @@
         </table>
         </div>
         <div class="col-md-4">
-            <h3><span class="label label-primary">AMIGOS</span></h3>
-            
-            <%
-                for (Usuario u:listaUsuario) {
-            %>
-            
-            <h4> <%= u.getNombre() %> </h4>
-            
-            <%
-                }
-            %>   
+           <jsp:include page="amigosList.jsp" />
         </div>
-        <form action="InvitaAmigo" method="post">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Agregar Amigo">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Agregar!</button>
-                    </span>
-            </div>
-        </form>
     </body>
 </html>

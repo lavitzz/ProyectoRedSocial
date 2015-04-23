@@ -3,7 +3,6 @@
     Created on : 23-abr-2015, 12:41:47
     Author     : lavitz
 --%>
-<!--Prueba-->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -13,6 +12,7 @@
 <link rel="stylesheet" href="bootstrap/css/estilo.css" type="text/css"/>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<% String login = "1"; %>
 <html>
     <head>
         <title>Iniciar Sesion</title>
@@ -40,6 +40,15 @@
                     <td><button class="btn btn-large btn-primary" type="submit" value= "Login"    name="Login">Login</button></td>
                         </tr>
                     </table>
+                <%
+                    HttpSession sesion = request.getSession();
+                    login = (String)sesion.getAttribute("login");
+                    if (login=="fail"){
+                %>
+                    <div class="alert alert-danger" role="alert">USUARIO o CLAVE INCORRECTA</div>
+                <%
+                    }
+                %>
             </div>
             </form>
             </center>

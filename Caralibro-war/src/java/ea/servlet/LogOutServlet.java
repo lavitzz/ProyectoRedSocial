@@ -5,11 +5,9 @@
  */
 package ea.servlet;
 
-import cl.ejb.UsuarioFacade;
-import cl.entity.Usuario;
 import java.io.IOException;
-import java.util.List;
-import javax.ejb.EJB;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author lavitz
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "LogOutServlet", urlPatterns = {"/LogOutServlet"})
+public class LogOutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,24 +35,10 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
-        Usuario usu;
-        String usuario, password;
-        
-        usuario = request.getParameter("user");
-        password = request.getParameter("password");
-        usu = this.usuarioFacade.compruebaUsuario(usuario, password);
-        if(usu!=null){
-            String usuid = usu.getIdUsuario().toString();
-            sesion.setAttribute("idusuario", usuid);
-            sesion.setAttribute("usuario", usuario);
-            response.sendRedirect("/Caralibro-war/listadoPostPersonal");
-        }
-        else{
-            String login = "fail";
-            sesion.setAttribute("login",login);
-            response.sendRedirect("/Caralibro-war/index.jsp");
-        }
-        
+        sesion.setAttribute("login", "1");
+        RequestDispatcher rd;
+        rd = this.getServletContext().getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -72,7 +54,6 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-               
     }
 
     /**
