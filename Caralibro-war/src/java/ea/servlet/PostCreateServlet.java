@@ -46,7 +46,9 @@ public class PostCreateServlet extends HttpServlet {
         id = (String) sesion.getAttribute("idusuario");
         textoPost = request.getParameter("textoP");
         p = this.postFacade.insertaPostbyAuthorID(id, textoPost);
-        this.postFacade.create(p);
+        if (p!=null){
+            this.postFacade.create(p);
+        }
         response.sendRedirect("/Caralibro-war/listadoPostPersonal");
     }
 

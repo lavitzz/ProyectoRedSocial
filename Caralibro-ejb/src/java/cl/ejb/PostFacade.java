@@ -51,23 +51,27 @@ public class PostFacade extends AbstractFacade<Post> {
         Date fechaActual = new Date();
         BigDecimal idd = new BigDecimal(id);
         
-        Post p = new Post();
-        q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :id");
-        q.setParameter("id", new BigDecimal(id));
-        user = (Usuario) q.getSingleResult();
-        p.setAutor(user);
-        p.setFecha(fechaActual);
-        //SIEMPRE GRUPO 0
-        q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = 0");
-        g = (Grupo) q.getSingleResult();
-        p.setGrupo(g);
-        p.setTexto(texto);
-        return p;
+        if (!texto.isEmpty())
+        {
+            Post p = new Post();
+            q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :id");
+            q.setParameter("id", new BigDecimal(id));
+            user = (Usuario) q.getSingleResult();
+            p.setAutor(user);
+            p.setFecha(fechaActual);
+            //SIEMPRE GRUPO 0
+            q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = 0");
+            g = (Grupo) q.getSingleResult();
+            p.setGrupo(g);
+            p.setTexto(texto);
+            return p;
+        }
         /*q = em.createNativeQuery("INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '2007-08-08,09', 'hola', 1, 0);");
         q.executeUpdate();
         //INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '2007-08-08,09', 'hola', 1, 0);
         INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '22-abr-2015 17:11:04', 'hola', 1, 0);
         */
+        return null;
     }
     
 }

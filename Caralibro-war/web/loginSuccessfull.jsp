@@ -49,7 +49,7 @@
                       <ul class="nav navbar-nav">
                         <li class="active"><a href="http://localhost:8080/Caralibro-war/listadoPostPersonal">Inicio<span class="sr-only">(current)</span></a></li>
                         <li><a href="http://localhost:8080/Caralibro-war/listadoPostPersonal">Mi Perfil</a></li>
-                        <li><a href="http://localhost:8080/Caralibro-war/">Notificaciones</a></li>
+                        <li><a href="http://localhost:8080/Caralibro-war/">Salir</a></li>
                       </ul>
                       <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
@@ -58,7 +58,7 @@
                         <button type="submit" class="btn btn-default">Buscar</button>
                       </form>
                       <ul class="nav navbar-nav navbar-right">
-                          <a href="http://localhost:8080/Caralibro-war/"><button type="button" class="btn btn-danger navbar-btn">Salir</button></a>
+                          <button type="button" class="btn btn-default navbar-btn">Chapar</button>
                       </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container-fluid -->

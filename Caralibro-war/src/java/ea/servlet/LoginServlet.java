@@ -52,7 +52,8 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/Caralibro-war/listadoPostPersonal");
         }
         else{
-            
+            request.setAttribute("login", 0);
+            response.sendRedirect("/Caralibro-war/index.jsp");
         }
         
     }

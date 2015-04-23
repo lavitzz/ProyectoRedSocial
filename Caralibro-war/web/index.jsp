@@ -1,11 +1,11 @@
+<%-- 
+    Document   : index
+    Created on : 23-abr-2015, 12:41:47
+    Author     : lavitz
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<meta charset="utf-8">
-<!—[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]—>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
