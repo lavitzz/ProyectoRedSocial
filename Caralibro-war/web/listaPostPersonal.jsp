@@ -17,6 +17,8 @@
     List<Usuario> listaUsuario;
     listaUsuario = (List)request.getAttribute("listaA");
     
+    request.getAttribute("id");
+    
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,6 +30,14 @@
         <title>Muro Personal</title>
     </head>
     <body>
+        <div class="col-md-12">
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container">
+                    <p class="navbar-text">Signed in as Me</p>
+                    <p class="navbar-right"><button type="button" class="btn btn-default navbar-btn">Salir</button></p>
+                </div>
+            </nav>
+        </div>
         <div class="col-md-8">
             <div class="row">
                 <div class="col-lg-6">
