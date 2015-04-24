@@ -12,7 +12,7 @@
 <%@page import="java.util.List"%>
 <%
     List<Post> lista;
-    lista = (List)request.getAttribute("listaP");
+    lista = (List)request.getAttribute("listaTP");
     
     List<Usuario> listaUsuario;
     listaUsuario = (List)request.getAttribute("listaA");
@@ -98,25 +98,7 @@
         </table>
         </div>
         <div class="col-md-4">
-            <h3><span class="label label-primary">AMIGOS</span></h3>
-            
-            <%
-                for (Usuario u:listaUsuario) {
-            %>
-            
-            <h4> <%= u.getNombre() %> </h4>
-            
-            <%
-                }
-            %>   
+           <jsp:include page="amigosList.jsp" />
         </div>
-        <form action="InvitaAmigo" method="post">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Agregar Amigo">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Agregar!</button>
-                    </span>
-            </div>
-        </form>
     </body>
 </html>
