@@ -69,7 +69,8 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-lg-6">
-                    <form action="PostFriendServlet?idamigo=<%=request.getParameter("idamigo") %>" method="post">
+                    <% String idamigo = request.getParameter("idamigo"); %>
+                    <form action="PostFriendServlet?idamigo=<%=idamigo %>" method="post">
                         <div class="input-group">
                             <input type="text" name="textoP" class="form-control" placeholder="Insertar Post...">
                                 <span class="input-group-btn">
