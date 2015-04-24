@@ -35,6 +35,8 @@ public class LogOutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
+        sesion.removeAttribute("idusuario");
+        sesion.removeAttribute("usuario");
         sesion.setAttribute("login", "1");
         RequestDispatcher rd;
         rd = this.getServletContext().getRequestDispatcher("/index.jsp");

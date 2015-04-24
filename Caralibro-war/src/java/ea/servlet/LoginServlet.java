@@ -10,6 +10,7 @@ import cl.entity.Usuario;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,8 +54,10 @@ public class LoginServlet extends HttpServlet {
         }
         else{
             String login = "fail";
-            sesion.setAttribute("login",login);
-            response.sendRedirect("/Caralibro-war/index.jsp");
+            request.setAttribute("login",login);
+            RequestDispatcher rd;
+            rd = this.getServletContext().getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
         }
         
     }

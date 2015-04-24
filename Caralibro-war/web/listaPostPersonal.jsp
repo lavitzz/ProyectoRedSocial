@@ -79,13 +79,13 @@
                     </form>
                 </div><!-- /.col-lg-6 -->
             </div><!-- /.row -->
-        <%          
+            <%          
                 for (Post p:lista) {
                     Date d = p.getFecha();
                     DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
                     DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
                     String fecha = "Fecha: " + formatoFecha.format(d) + " Hora: " + formatoHora.format(d);
-        %>
+            %>
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h5 class="panel-title">Autor: <%= p.getAutor().getNombre() %> <%= fecha %></h5>
@@ -100,7 +100,13 @@
         </table>
         </div>
         <div class="col-md-4">
+            <% if(listaUsuario == null ){ %>
+           <jsp:include page="ListaAmigosServlet" />
+           <% } 
+            else{
+           %>
            <jsp:include page="amigosList.jsp" />
+           <% } %>
         </div>
     </body>
 </html>

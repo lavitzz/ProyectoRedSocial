@@ -41,8 +41,7 @@
                         </tr>
                     </table>
                 <%
-                    HttpSession sesion = request.getSession();
-                    login = (String)sesion.getAttribute("login");
+                    login = (String)request.getAttribute("login");
                     if (login=="fail"){
                 %>
                     <div class="alert alert-danger" role="alert">USUARIO o CLAVE INCORRECTA</div>

@@ -8,10 +8,6 @@
 <%@page import="cl.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%   
-    List<Usuario> listaUsuario;
-    listaUsuario = (List)request.getAttribute("listaA");
-%>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <html>
@@ -20,14 +16,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3><span class="label label-primary">AMIGOS</span></h3>
-            
+        <h3><span class="label label-primary">AMIGOS</span></h3> 
             <%
+                List<Usuario> listaUsuario;
+                listaUsuario = (List)request.getAttribute("listaA");
                 for (Usuario u:listaUsuario) {
-            %>
-            
-            <h4> <%= u.getNombre() %> </h4>
-            
+            %>     
+                    <a href="/Caralibro-war/PaginaAmigoServlet?idamigo=<%=u.getIdUsuario() %>"><h4> <%= u.getNombre() + " " + u.getApellido() %> </h4></a>
             <%
                 }
             %>   

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : listaPostPersonal
-    Created on : 17-abr-2015, 11:23:15
+    Document   : listaPostAmigo
+    Created on : 24-abr-2015, 14:18:17
     Author     : lavitz
 --%>
 
@@ -12,7 +12,7 @@
 <%@page import="java.util.List"%>
 <%
     List<Post> lista;
-    lista = (List)request.getAttribute("listaTP");
+    lista = (List)request.getAttribute("listaP");
     
     List<Usuario> listaUsuario;
     listaUsuario = (List)request.getAttribute("listaA");
@@ -49,7 +49,7 @@
                       <ul class="nav navbar-nav">
                         <li class="active"><a href="http://localhost:8080/Caralibro-war/listadoPostPersonal">Inicio<span class="sr-only">(current)</span></a></li>
                         <li><a href="http://localhost:8080/Caralibro-war/listadoPostPersonal">Mi Perfil</a></li>
-                        <li><a href="http://localhost:8080/Caralibro-war/">Salir</a></li>
+                        <li><a href="http://localhost:8080/Caralibro-war/">Notificaciones</a></li>
                       </ul>
                       <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
@@ -58,7 +58,9 @@
                         <button type="submit" class="btn btn-default">Buscar</button>
                       </form>
                       <ul class="nav navbar-nav navbar-right">
-                          <button type="button" class="btn btn-default navbar-btn">Chapar</button>
+                            <form action="LogOutServlet" method="post">      
+                                <button class="btn btn-danger" type="submit">Salir</button>  
+                            </form>
                       </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container-fluid -->
@@ -67,7 +69,7 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-lg-6">
-                    <form action="PostCreateServlet" method="post">
+                    <form action="PostFriendServlet?idamigo=<%=request.getParameter("idamigo") %>" method="post">
                         <div class="input-group">
                             <input type="text" name="textoP" class="form-control" placeholder="Insertar Post...">
                                 <span class="input-group-btn">
@@ -98,7 +100,13 @@
         </table>
         </div>
         <div class="col-md-4">
+            <% if(listaUsuario == null ){ %>
+           <jsp:include page="ListaAmigosServlet" />
+           <% } 
+            else{
+           %>
            <jsp:include page="amigosList.jsp" />
+           <% } %>
         </div>
     </body>
 </html>
