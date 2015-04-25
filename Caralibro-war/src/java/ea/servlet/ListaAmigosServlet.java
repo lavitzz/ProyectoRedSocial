@@ -8,7 +8,6 @@ package ea.servlet;
 import cl.ejb.AmigoFacade;
 import cl.entity.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
