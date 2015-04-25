@@ -68,6 +68,8 @@ public class Usuario implements Serializable {
     private Collection<Grupousuarios> grupousuariosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "autor")
     private Collection<Post> postCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "destinatario")
+    private Collection<Post> postCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "administrador")
     private Collection<Grupo> grupoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
@@ -152,6 +154,15 @@ public class Usuario implements Serializable {
 
     public void setPostCollection(Collection<Post> postCollection) {
         this.postCollection = postCollection;
+    }
+
+    @XmlTransient
+    public Collection<Post> getPostCollection1() {
+        return postCollection1;
+    }
+
+    public void setPostCollection1(Collection<Post> postCollection1) {
+        this.postCollection1 = postCollection1;
     }
 
     @XmlTransient

@@ -38,19 +38,17 @@ public class PostFacade extends AbstractFacade<Post> {
         Query q;
         List<Post> listaPosts;        
         
-        q = em.createQuery("SELECT p FROM Post p WHERE p.autor.idUsuario = :id");
+        q = em.createQuery("SELECT p FROM Post p WHERE p.destinatario.idUsuario = :id ORDER BY p.fecha DESC");
         q.setParameter("id", new BigDecimal(id));
         listaPosts = q.getResultList();
         return listaPosts;
     }
     
-    public Post insertaPostbyAuthorID (String id, String texto){
+    public Post insertaPostbyAuthorID (String id, String dest, String texto){
         Query q;
         Usuario user;
         Grupo g;
         Date fechaActual = new Date();
-        BigDecimal idd = new BigDecimal(id);
-        
         if (!texto.isEmpty())
         {
             Post p = new Post();
@@ -58,7 +56,13 @@ public class PostFacade extends AbstractFacade<Post> {
             q.setParameter("id", new BigDecimal(id));
             user = (Usuario) q.getSingleResult();
             p.setAutor(user);
+            if((dest!=null)&&!id.equals(dest)){
+                q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :dest");
+                q.setParameter("dest", new BigDecimal(dest));
+                user = (Usuario) q.getSingleResult();
+            }
             p.setFecha(fechaActual);
+            p.setDestinatario(user);
             //SIEMPRE GRUPO 0
             q = em.createQuery("SELECT g FROM Grupo g WHERE g.idGrupo = 0");
             g = (Grupo) q.getSingleResult();
@@ -66,11 +70,6 @@ public class PostFacade extends AbstractFacade<Post> {
             p.setTexto(texto);
             return p;
         }
-        /*q = em.createNativeQuery("INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '2007-08-08,09', 'hola', 1, 0);");
-        q.executeUpdate();
-        //INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '2007-08-08,09', 'hola', 1, 0);
-        INSERT INTO Post (ID_POST, FECHA, TEXTO, AUTOR, GRUPO) values(3, '22-abr-2015 17:11:04', 'hola', 1, 0);
-        */
         return null;
     }
     

@@ -27,7 +27,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Muro Personal</title>
+        <title>Post de Amigo</title>
     </head>
     <body>
         <!-- NAVBAR -->
@@ -67,19 +67,7 @@
                 </nav>
         </div>
         <div class="col-md-8">
-            <div class="row">
-                <div class="col-lg-6">
-                    <% String idamigo = request.getParameter("idamigo"); %>
-                    <form action="PostFriendServlet?idamigo=<%=idamigo %>" method="post">
-                        <div class="input-group">
-                            <input type="text" name="textoP" class="form-control" placeholder="Insertar Post...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">Insertar</button>
-                                </span>
-                        </div><!-- /input-group -->
-                    </form>
-                </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
+            
         <%          
                 for (Post p:lista) {
                     Date d = p.getFecha();

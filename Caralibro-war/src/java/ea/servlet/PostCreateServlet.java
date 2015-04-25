@@ -7,9 +7,7 @@ package ea.servlet;
 
 import cl.ejb.PostFacade;
 import cl.entity.Post;
-import cl.entity.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,11 +39,13 @@ public class PostCreateServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
         String id, textoPost;
+        String dest;
         Post p;
         
         id = (String) sesion.getAttribute("idusuario");
+        dest = request.getParameter("idamigo");
         textoPost = request.getParameter("textoP");
-        p = this.postFacade.insertaPostbyAuthorID(id, textoPost);
+        p = this.postFacade.insertaPostbyAuthorID(id, dest, textoPost);
         if (p!=null){
             this.postFacade.create(p);
         }

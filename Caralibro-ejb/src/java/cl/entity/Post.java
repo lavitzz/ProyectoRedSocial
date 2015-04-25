@@ -60,6 +60,9 @@ public class Post implements Serializable {
     @JoinColumn(name = "AUTOR", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false)
     private Usuario autor;
+    @JoinColumn(name = "DESTINATARIO", referencedColumnName = "ID_USUARIO")
+    @ManyToOne(optional = false)
+    private Usuario destinatario;
 
     public Post() {
     }
@@ -106,6 +109,14 @@ public class Post implements Serializable {
 
     public void setAutor(Usuario autor) {
         this.autor = autor;
+    }
+
+    public Usuario getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(Usuario destinatario) {
+        this.destinatario = destinatario;
     }
 
     @Override

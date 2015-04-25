@@ -35,10 +35,10 @@ public class Amigo implements Serializable {
     protected AmigoPK amigoPK;
     @Column(name = "CONFIRMADO")
     private BigInteger confirmado;
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_AMIGO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario;
-    @JoinColumn(name = "ID_AMIGO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario1;
 

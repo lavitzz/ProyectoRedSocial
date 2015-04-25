@@ -8,7 +8,6 @@ package ea.servlet;
 import cl.ejb.UsuarioFacade;
 import cl.entity.Usuario;
 import java.io.IOException;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
