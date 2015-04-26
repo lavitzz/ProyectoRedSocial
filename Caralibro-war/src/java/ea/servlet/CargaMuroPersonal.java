@@ -5,12 +5,7 @@
  */
 package ea.servlet;
 
-import cl.ejb.AmigoFacade;
-import cl.ejb.PostFacade;
-import cl.entity.Post;
 import java.io.IOException;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,13 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author lavitz
  */
-@WebServlet(name = "listadoPostPersonal", urlPatterns = {"/listadoPostPersonal"})
-public class ListadoPostPServlet extends HttpServlet {
-    @EJB
-    private AmigoFacade amigoFacade;
-    @EJB
-    private PostFacade postFacade;
-    
+@WebServlet(name = "CargaMuroPersonal", urlPatterns = {"/CargaMuroPersonal"})
+public class CargaMuroPersonal extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,18 +33,18 @@ public class ListadoPostPServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            String id;
-            List<Post> listaPosts;
-            HttpSession sesion = request.getSession();
-            
-            id = (String) sesion.getAttribute("idusuario");
-            listaPosts = this.postFacade.findPostbyAuthorID(id);
-            request.setAttribute("listaP", listaPosts);
-            
-            RequestDispatcher rd;
-            rd = this.getServletContext().getRequestDispatcher("/listaPostPersonal.jsp");
-            rd.forward(request, response);        
-        }
+        HttpSession sesion = request.getSession();
+        RequestDispatcher rd;
+        String id;
+        String idamigo;
+        
+        id = (String) sesion.getAttribute("idusuario");
+        request.setAttribute("idusuario", id);
+        idamigo = request.getParameter("idamigo");
+               
+        rd = this.getServletContext().getRequestDispatcher("/VistaMuroPersonal.jsp?idamigo="+idamigo);
+        rd.include(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

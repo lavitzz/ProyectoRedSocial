@@ -5,10 +5,10 @@
  */
 package ea.servlet;
 
-import cl.ejb.AmigoFacade;
 import cl.ejb.PostFacade;
 import cl.entity.Post;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -17,19 +17,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author lavitz
  */
-@WebServlet(name = "listadoPostPersonal", urlPatterns = {"/listadoPostPersonal"})
-public class ListadoPostPServlet extends HttpServlet {
-    @EJB
-    private AmigoFacade amigoFacade;
+@WebServlet(name = "ListaPostServlet", urlPatterns = {"/ListaPostServlet"})
+public class ListaPostServlet extends HttpServlet {
     @EJB
     private PostFacade postFacade;
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,18 +39,18 @@ public class ListadoPostPServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            String id;
-            List<Post> listaPosts;
-            HttpSession sesion = request.getSession();
-            
-            id = (String) sesion.getAttribute("idusuario");
-            listaPosts = this.postFacade.findPostbyAuthorID(id);
-            request.setAttribute("listaP", listaPosts);
-            
-            RequestDispatcher rd;
-            rd = this.getServletContext().getRequestDispatcher("/listaPostPersonal.jsp");
-            rd.forward(request, response);        
-        }
+        List<Post> listaPost;
+        String id;
+        
+        id = request.getParameter("idpost");
+        listaPost = this.postFacade.findPostbyAuthorID(id);
+        request.setAttribute("listaP", listaPost);
+        request.setAttribute("iddest", id);
+        
+        RequestDispatcher rd;
+        rd = this.getServletContext().getRequestDispatcher("/listaPost.jsp");
+        rd.include(request, response);       
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

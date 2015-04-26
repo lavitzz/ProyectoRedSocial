@@ -43,13 +43,13 @@ public class PostCreateServlet extends HttpServlet {
         Post p;
         
         id = (String) sesion.getAttribute("idusuario");
-        dest = request.getParameter("idamigo");
+        dest = request.getParameter("iddest");
         textoPost = request.getParameter("textoP");
         p = this.postFacade.insertaPostbyAuthorID(id, dest, textoPost);
         if (p!=null){
             this.postFacade.create(p);
         }
-        response.sendRedirect("/Caralibro-war/listadoPostPersonal");
+        response.sendRedirect("/Caralibro-war/CargaMuroPersonal?idamigo="+dest);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

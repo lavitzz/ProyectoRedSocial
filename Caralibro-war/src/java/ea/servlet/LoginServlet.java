@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession sesion = request.getSession();
         Usuario usu;
         String usuario, password;
+        RequestDispatcher rd;
         
         usuario = request.getParameter("user");
         password = request.getParameter("password");
@@ -49,12 +50,13 @@ public class LoginServlet extends HttpServlet {
             String usuid = usu.getIdUsuario().toString();
             sesion.setAttribute("idusuario", usuid);
             sesion.setAttribute("usuario", usuario);
-            response.sendRedirect("/Caralibro-war/listadoPostPersonal");
+            request.setAttribute("idusuario", usuid);
+            rd = this.getServletContext().getRequestDispatcher("/VistaMuroPersonal.jsp?idamigo="+usuid);
+            rd.forward(request, response);
         }
         else{
             String login = "fail";
             request.setAttribute("login",login);
-            RequestDispatcher rd;
             rd = this.getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         }

@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,17 +38,16 @@ public class ListaAmigosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession sesion = request.getSession();
+        List<Usuario> listaAmigos;
         String id;
         
-        id = (String) sesion.getAttribute("idusuario");
-        List<Usuario> listaAmigos;
+        id = request.getParameter("idamigo");       
         listaAmigos = this.amigoFacade.findFriendsByID(id);
         request.setAttribute("listaA", listaAmigos);
         
         RequestDispatcher rd;
-        rd = this.getServletContext().getRequestDispatcher("/listaPostPersonal.jsp");
-        rd.forward(request, response);    
+        rd = this.getServletContext().getRequestDispatcher("/ListaAmigos.jsp");
+        rd.include(request, response);    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
