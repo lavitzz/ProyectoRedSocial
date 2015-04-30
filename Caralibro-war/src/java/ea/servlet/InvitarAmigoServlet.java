@@ -6,9 +6,8 @@
 package ea.servlet;
 
 import cl.ejb.AmigoFacade;
-import cl.entity.Usuario;
+import cl.ejb.UsuarioFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +23,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "InvitarAmigoServlet", urlPatterns = {"/InvitarAmigoServlet"})
 public class InvitarAmigoServlet extends HttpServlet {
     @EJB
+    private UsuarioFacade usuarioFacade;
+    @EJB
     private AmigoFacade amigoFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,21 +41,15 @@ public class InvitarAmigoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
-        Usuario usu;
-        String usuario, password;
+        String idusuario;
+        String nameamigo;
         
-        usuario = request.getParameter("user");
-        password = request.getParameter("password");
-        /*usu = this.amigoFacade
-        if(usu!=null){
-            String usuid = usu.getIdUsuario().toString();
-            sesion.setAttribute("idusuario", usuid);
-            sesion.setAttribute("usuario", usuario);
-            response.sendRedirect("/Caralibro-war/listadoPostPersonal");
-        }
-        else{
-            
-        }*/
+        idusuario = (String) sesion.getAttribute("idusuario");
+        nameamigo = request.getParameter("nombreamigo");
+        
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

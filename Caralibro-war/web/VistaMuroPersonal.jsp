@@ -16,7 +16,9 @@
         <% 
             String idusuario;
             String idamigo;
+            //Parametro por request
             idusuario = (String)request.getAttribute("idusuario");
+            //Parametro por URL
             idamigo = request.getParameter("idamigo");
         %>
         <jsp:include page="header.jsp" >

@@ -8,7 +8,6 @@ package ea.servlet;
 import cl.ejb.PostFacade;
 import cl.entity.Post;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
