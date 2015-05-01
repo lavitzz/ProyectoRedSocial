@@ -26,11 +26,8 @@
             %>   
         </div>
         <form action="InvitarAmigoServlet" method="post">
-            <div class="input-group">
-                <input type="text" class="form-control" name="nombreamigo" placeholder="Agregar Amigo">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Agregar!</button>
-                    </span>
-            </div>
+            Invitar Amigo <input type="text" name="nombreamigo" placeholder="Introduce nombre amigo... "/>
+            <button class="btn btn-primary" type="submit" value= "Añadir"    name="Login">Login</button>    
+        </div>
         </form>
 </html>
