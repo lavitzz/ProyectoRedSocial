@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ea.servlet;
 
 import cl.ejb.AmigoFacade;
-import cl.ejb.UsuarioFacade;
-import cl.entity.Amigo;
 import cl.entity.Usuario;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,19 +18,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author lavitz
  */
-@WebServlet(name = "InvitarAmigoServlet", urlPatterns = {"/InvitarAmigoServlet"})
-public class InvitarAmigoServlet extends HttpServlet {
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "ListaNotificacionesServlet", urlPatterns = {"/ListaNotificacionesServlet"})
+public class ListaNotificacionesServlet extends HttpServlet {
     @EJB
     private AmigoFacade amigoFacade;
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,29 +40,16 @@ public class InvitarAmigoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession sesion = request.getSession();
-        String idusuario;
-        String email;
-        Usuario amigo;
-        Amigo a;
+        String id;
+        List<Usuario> listaI;
+        
+        id = request.getParameter("idusuario");
+       
+        listaI = this.amigoFacade.searchInvitations(new BigDecimal(id));
+        
         RequestDispatcher rd;
-        
-        idusuario = (String) sesion.getAttribute("idusuario");
-        email = request.getParameter("emailamigo");
-        request.setAttribute("idusuario", idusuario);
-        
-        amigo = this.usuarioFacade.findUserbyEmail(email);
-        if (amigo!=null){
-            a = this.amigoFacade.createFriend(new BigDecimal(idusuario), amigo.getIdUsuario());
-            this.amigoFacade.create(a);
-            //Redireccion a VistaMuroPersonal (Invitacion Enviada)
-            rd = this.getServletContext().getRequestDispatcher("/VistaMuroPersonal.jsp?idamigo="+idusuario);
-            rd.forward(request, response);
-        }
-        //Email de amigo incorrecto
-        else{
-            
-        }
+        rd = this.getServletContext().getRequestDispatcher("/ListaNotificaciones.jsp");
+        rd.include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

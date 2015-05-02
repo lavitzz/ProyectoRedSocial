@@ -9,6 +9,7 @@ import cl.entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -44,6 +45,31 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         else{
             return null;
         }
+    }
+    
+    public Usuario findUserbyEmail(String email){
+        Query q;
+        Usuario u;
+        try{
+            q = em.createNamedQuery("Usuario.findByCorreo");
+            q.setParameter("correo", email);
+            u = (Usuario) q.getSingleResult();
+        }
+        catch(NoResultException e){
+            return null;
+        }     
+        return u;
+    }
+    
+    public Usuario findUserbyID(String id){
+        Query q;
+        Usuario u;
+        
+        q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario");
+        q.setParameter("idUsuario", id);
+        u = (Usuario)q.getSingleResult();
+        
+        return u;
     }
     
 }

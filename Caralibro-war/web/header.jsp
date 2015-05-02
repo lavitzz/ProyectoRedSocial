@@ -35,7 +35,7 @@
                           %>
                           <li class="active"><a href="/Caralibro-war/CargaMuroPersonal?idamigo=<%=id%>">Inicio<span class="sr-only">(current)</span></a></li>
                         <li><a href="/Caralibro-war/listadoPostPersonal">Mi Perfil</a></li>
-                        <li><a href="/Caralibro-war/">Notificaciones</a></li>
+                        <li><a href="/Caralibro-war/VistaNotificaciones.jsp?id=<%=id%>">Notificaciones</a></li>
                       </ul>
                       <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">

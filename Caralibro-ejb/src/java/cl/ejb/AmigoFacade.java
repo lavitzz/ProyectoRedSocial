@@ -8,6 +8,7 @@ package cl.ejb;
 import cl.entity.Amigo;
 import cl.entity.Usuario;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -44,6 +45,23 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         q.setParameter("id", new BigDecimal(id));
         listaAmigos = q.getResultList();
         return listaAmigos;
+    }
+    
+    public Amigo createFriend(BigDecimal user, BigDecimal inv){
+        Amigo a = new Amigo(user.toBigInteger(),inv.toBigInteger());
+        a.setConfirmado(BigInteger.ZERO);
+        return a;
+    }
+    
+    public List<Usuario> searchInvitations(BigDecimal id){
+        Query q;
+        List<Usuario> listaI;
+        
+        q = em.createQuery("SELECT a.usuario FROM Amigo a WHERE a.usuario1.idUsuario = :id AND a.confirmado = 0 ");
+        q.setParameter("id", id);
+        listaI = q.getResultList();
+        
+        return listaI;
     }
     
 }

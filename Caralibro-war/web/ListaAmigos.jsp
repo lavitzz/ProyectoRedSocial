@@ -26,7 +26,7 @@
             %>   
         </div>
         <form action="InvitarAmigoServlet" method="post">
-            Invitar Amigo <input type="text" name="nombreamigo" placeholder="Introduce nombre amigo... "/>
+            Invitar Amigo <input type="text" name="emailamigo" placeholder="Introduce email de tu amigo... "/>
             <button class="btn btn-primary" type="submit" value= "Añadir"    name="Login">Login</button>    
         </div>
         </form>
