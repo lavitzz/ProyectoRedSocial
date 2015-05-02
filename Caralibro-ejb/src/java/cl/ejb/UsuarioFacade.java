@@ -7,6 +7,7 @@ package cl.ejb;
 
 import cl.entity.Usuario;
 import java.util.List;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,6 +45,23 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         else{
             return null;
         }
+    }
+    
+    public Usuario getUsuarioByEmail(String email){
+        Query q;
+        Usuario u;
+        
+        q = em.createNamedQuery("Usuario.findByCorreo");
+        q.setParameter("correo", email);
+        
+        try{
+            u = (Usuario)q.getSingleResult();
+            return u;
+        }
+        catch (Exception e){
+            return null;
+        }
+ 
     }
     
 }

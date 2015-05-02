@@ -7,7 +7,10 @@ package ea.servlet;
 
 import cl.ejb.AmigoFacade;
 import cl.ejb.UsuarioFacade;
+import cl.entity.Usuario;
+import cl.entity.Amigo;
 import java.io.IOException;
+import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,12 +46,24 @@ public class InvitarAmigoServlet extends HttpServlet {
         HttpSession sesion = request.getSession();
         String idusuario;
         String nameamigo;
+        Usuario u;
+        Amigo ami;
         
         idusuario = (String) sesion.getAttribute("idusuario");
         nameamigo = request.getParameter("nombreamigo");
         
+        u = this.usuarioFacade.getUsuarioByEmail(nameamigo);
         
+        if (u!=null){
+            ami = this.amigoFacade.insertaAmigoByID(new BigDecimal(idusuario), u.getIdUsuario());
+            if(ami!=null){
+                this.amigoFacade.create(ami);
+            }
+           
+        }
         
+        response.sendRedirect("/Caralibro-war/CargaMuroPersonal?idamigo="+idusuario);
+
         
     }
 
