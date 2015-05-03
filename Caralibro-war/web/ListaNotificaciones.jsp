@@ -4,6 +4,8 @@
     Author     : lavitz
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="cl.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%
+            List<Usuario> listaI;
+            listaI = (List)request.getAttribute("listaI");
+            for(Usuario u: listaI){
+        %>
+        <div class="alert alert-info" role="alert">El Usuario <%=u.getNombre() %> <%=u.getApellido() %> quiere ser tu amigo. 
+            <a href="/Caralibro-war/TramitarInvitacionesServlet?idamigo=<%=u.getIdUsuario() %>&ok=1" > Aceptar  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </a>
+            <a href="/Caralibro-war/TramitarInvitacionesServlet?idamigo=<%=u.getIdUsuario() %>&ok=0" > Rechazar  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></a>
+        <%
+            }
+        %>
     </body>
 </html>

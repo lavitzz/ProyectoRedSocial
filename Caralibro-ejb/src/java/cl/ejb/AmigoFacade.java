@@ -37,11 +37,9 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         Query q;
         List<Usuario> listaAmigos;        
         
-        //q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario = :id");
-        //SELECT * FROM USUARIO WHERE ID_USUARIO IN (SELECT ID_AMIGO FROM AMIGO WHERE ID_USUARIO = 1)
-        //q = em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario IN (SELECT a.idUsuario FROM Amigo a WHERE a.idUsuario = :id)");
-        //q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigo a WHERE a.usuario.idUsuario = :id");
         q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigoCollection1 a WHERE a.amigoPK.idAmigo = :id AND a.confirmado = 1");
+        //q = em.createQuery("SELECT u FROM Usuario u WHERE (u.amigoCollection1.usuario.idUsuario = :id OR u.amigoCollection1.usuario1.idUsuario = :id) AND (u.amigoCollection1.confirmado = 1)");
+        //q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigoCollection1 a WHERE (a.amigoPK.idAmigo = :id OR a.amigoPK.idUsuario = :id ) AND a.confirmado = 1");
         q.setParameter("id", new BigDecimal(id));
         listaAmigos = q.getResultList();
         return listaAmigos;
@@ -64,4 +62,19 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         return listaI;
     }
     
+    public void acceptFriend(String idusuario, String idamigo){
+        Query q;
+        q = em.createQuery("UPDATE Amigo a SET a.confirmado = 1 WHERE a.usuario1.idUsuario = :idusuario AND a.usuario.idUsuario = :idamigo");
+        q.setParameter("idusuario", new BigDecimal(idusuario));
+        q.setParameter("idamigo", new BigDecimal(idamigo));
+        int updated = q.executeUpdate();
+    }
+    
+    public void rejectFriend(String idusuario, String idamigo){
+        Query q;
+        q = em.createQuery("DELETE FROM Amigo a WHERE a.usuario1.idUsuario = :idusuario AND a.usuario.idUsuario = :idamigo");
+        q.setParameter("idusuario", new BigDecimal(idusuario));
+        q.setParameter("idamigo", new BigDecimal(idamigo));
+        int deleted = q.executeUpdate();
+    }   
 }

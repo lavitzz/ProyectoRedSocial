@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ea.servlet;
 
-import cl.ejb.UsuarioFacade;
-import cl.entity.Usuario;
+import cl.ejb.AmigoFacade;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -21,10 +21,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author lavitz
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "TramitarInvitacionesServlet", urlPatterns = {"/TramitarInvitacionesServlet"})
+public class TramitarInvitacionesServlet extends HttpServlet {
     @EJB
-    private UsuarioFacade usuarioFacade;
+    private AmigoFacade amigoFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,27 +39,26 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
-        Usuario usu;
-        String usuario, password;
-        RequestDispatcher rd;
+        String confirmacion;
+        String idamigo;
+        String idusuario;
         
-        usuario = request.getParameter("user");
-        password = request.getParameter("password");
-        usu = this.usuarioFacade.compruebaUsuario(usuario, password);
-        if(usu!=null){
-            String usuid = usu.getIdUsuario().toString();
-            sesion.setAttribute("idusuario", usuid);
-            sesion.setAttribute("usuario", usu);
-            request.setAttribute("idusuario", usuid);
-            rd = this.getServletContext().getRequestDispatcher("/VistaMuroPersonal.jsp?idamigo="+usuid);
-            rd.forward(request, response);
+        idusuario = (String)sesion.getAttribute("idusuario");
+        confirmacion = request.getParameter("ok");
+        idamigo = request.getParameter("idamigo");
+        //Confirmamos la solicitud de amistad
+        if (confirmacion.equals("1"))
+        {
+            this.amigoFacade.acceptFriend(idusuario,idamigo);
         }
+        //Cancelamos la solicitud de amistad
         else{
-            String login = "fail";
-            request.setAttribute("login",login);
-            rd = this.getServletContext().getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
+            this.amigoFacade.rejectFriend(idusuario,idamigo);
         }
+        
+        RequestDispatcher rd;
+        rd = this.getServletContext().getRequestDispatcher("/VistaNotificaciones.jsp?id="+idusuario);
+        rd.include(request, response);
         
     }
 
@@ -76,7 +75,6 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-               
     }
 
     /**

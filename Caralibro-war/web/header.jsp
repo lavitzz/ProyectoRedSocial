@@ -4,6 +4,7 @@
     Author     : lavitz
 --%>
 
+<%@page import="cl.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -31,7 +32,10 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav">
                           <%
+                              HttpSession sesion = request.getSession();
+                              Usuario u;
                               String id = request.getParameter("idusuario");
+                              u = (Usuario)sesion.getAttribute("usuario");
                           %>
                           <li class="active"><a href="/Caralibro-war/CargaMuroPersonal?idamigo=<%=id%>">Inicio<span class="sr-only">(current)</span></a></li>
                         <li><a href="/Caralibro-war/listadoPostPersonal">Mi Perfil</a></li>
@@ -43,6 +47,7 @@
                         </div>
                         <button type="submit" class="btn btn-default">Buscar</button>
                       </form>
+                        Usuario: <%= u.getNombre() %> <%= u.getApellido() %>
                       <ul class="nav navbar-nav navbar-right">
                             <form action="LogOutServlet" method="post">      
                                 <button class="btn btn-danger" type="submit">Salir</button>  

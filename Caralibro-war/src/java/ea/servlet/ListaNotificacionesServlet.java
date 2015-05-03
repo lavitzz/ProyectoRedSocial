@@ -44,8 +44,10 @@ public class ListaNotificacionesServlet extends HttpServlet {
         List<Usuario> listaI;
         
         id = request.getParameter("idusuario");
+        request.setAttribute("id", id);
        
         listaI = this.amigoFacade.searchInvitations(new BigDecimal(id));
+        request.setAttribute("listaI", listaI);
         
         RequestDispatcher rd;
         rd = this.getServletContext().getRequestDispatcher("/ListaNotificaciones.jsp");
