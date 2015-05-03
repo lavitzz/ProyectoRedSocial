@@ -43,17 +43,23 @@ public class LoginServlet extends HttpServlet {
         String usuario, password;
         RequestDispatcher rd;
         
+        //Recuperamos de los input el Usuario y la Contraseña
         usuario = request.getParameter("user");
         password = request.getParameter("password");
+        //Comprobamos que el usuario existe en la BD, en caso negativo devolvera usu=null
         usu = this.usuarioFacade.compruebaUsuario(usuario, password);
+        //LOGIN correcto
         if(usu!=null){
             String usuid = usu.getIdUsuario().toString();
+            //Guardamos en la sesion el idusuario y el objeto usuario que inicio sesion para futuras consultas
             sesion.setAttribute("idusuario", usuid);
             sesion.setAttribute("usuario", usu);
             request.setAttribute("idusuario", usuid);
+            //Redireccion al muro personal del usuario
             rd = this.getServletContext().getRequestDispatcher("/VistaMuroPersonal.jsp?idamigo="+usuid);
             rd.forward(request, response);
         }
+        //LOGIN incorrecto
         else{
             String login = "fail";
             request.setAttribute("login",login);

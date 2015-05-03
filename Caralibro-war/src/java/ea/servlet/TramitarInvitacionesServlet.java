@@ -43,6 +43,7 @@ public class TramitarInvitacionesServlet extends HttpServlet {
         String idamigo;
         String idusuario;
         
+        //Recuperamos los parametros necesarios para tramitar las invitaciones
         idusuario = (String)sesion.getAttribute("idusuario");
         confirmacion = request.getParameter("ok");
         idamigo = request.getParameter("idamigo");

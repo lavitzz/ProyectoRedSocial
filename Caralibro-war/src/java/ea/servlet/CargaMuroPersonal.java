@@ -37,7 +37,7 @@ public class CargaMuroPersonal extends HttpServlet {
         RequestDispatcher rd;
         String id;
         String idamigo;
-        
+        //Este servlet lo modificaremos/suprimiremos para la siguiente entrega
         id = (String) sesion.getAttribute("idusuario");
         request.setAttribute("idusuario", id);
         idamigo = request.getParameter("idamigo");

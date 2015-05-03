@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-4">
             <jsp:include page="ListaAmigosServlet">
-                <jsp:param name="idamigo" value="<%=idusuario%>" />
+                <jsp:param name="idusuario" value="<%=idusuario%>" />
             </jsp:include>
         </div>
     </body>

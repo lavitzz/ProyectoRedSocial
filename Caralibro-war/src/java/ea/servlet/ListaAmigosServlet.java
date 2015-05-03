@@ -41,10 +41,14 @@ public class ListaAmigosServlet extends HttpServlet {
         List<Usuario> listaAmigos;
         String id;
         
-        id = request.getParameter("idamigo");       
+        //Recuperamos de la URL el id del usuario que inicio la sesion
+        id = request.getParameter("idusuario");
+        //Recuperamos la lista de amigos del usuario de la BD
         listaAmigos = this.amigoFacade.findFriendsByID(id);
+        //Guardamos la lista de amigos para pasarla como atributo en el request
         request.setAttribute("listaA", listaAmigos);
         
+        //Redireccion con "include" para insertar la lista de amigos en la vista de nuestro muro
         RequestDispatcher rd;
         rd = this.getServletContext().getRequestDispatcher("/ListaAmigos.jsp");
         rd.include(request, response);    

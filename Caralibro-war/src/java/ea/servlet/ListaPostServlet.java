@@ -41,11 +41,16 @@ public class ListaPostServlet extends HttpServlet {
         List<Post> listaPost;
         String id;
         
+        //Recuperamos de la URL el id del usuario del cual debemos mostrar sus post
         id = request.getParameter("idpost");
+        //Mediante una consulta a la BD traemos la lista de Post del usuario
         listaPost = this.postFacade.findPostbyAuthorID(id);
         request.setAttribute("listaP", listaPost);
+        //El id destinatario es el id del URL si estamos en el muro de un amigo, insertaremos en su muro los mensajes
+        //por el contrario si estamos en nuestro muro insertaremos en el.
         request.setAttribute("iddest", id);
         
+        //Redireccion con "include" para insertar la lista en la Vista
         RequestDispatcher rd;
         rd = this.getServletContext().getRequestDispatcher("/listaPost.jsp");
         rd.include(request, response);       

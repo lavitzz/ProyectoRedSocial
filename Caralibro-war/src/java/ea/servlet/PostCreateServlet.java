@@ -9,6 +9,7 @@ import cl.ejb.PostFacade;
 import cl.entity.Post;
 import java.io.IOException;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,19 +38,26 @@ public class PostCreateServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher rd;
         HttpSession sesion = request.getSession();
         String id, textoPost;
         String dest;
         Post p;
         
+        //Recuperamos la id del usuario de la sesion y el destinatario que nos viene a traves de la URL
         id = (String) sesion.getAttribute("idusuario");
         dest = request.getParameter("iddest");
+        //El texto del Post lo recuperamos a traves del formulario con el que llamamos a este Servlet
         textoPost = request.getParameter("textoP");
+        //Llamamos a postFacade para asignarle todos los atributos al Post que vamos a crear
         p = this.postFacade.insertaPostbyAuthorID(id, dest, textoPost);
+        //Si el post no es nulo, insertamos el post en el muro correspondiente
         if (p!=null){
             this.postFacade.create(p);
         }
+        //Redireccion a un servlet que carga la Vista del muro del destinatario del post
         response.sendRedirect("/Caralibro-war/CargaMuroPersonal?idamigo="+dest);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

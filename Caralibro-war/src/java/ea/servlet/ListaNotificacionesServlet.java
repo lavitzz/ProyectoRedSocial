@@ -43,9 +43,11 @@ public class ListaNotificacionesServlet extends HttpServlet {
         String id;
         List<Usuario> listaI;
         
+        //Recuperamos de la URL la id de usuario y la añadimos para pasarla en la siguiente redireccion
         id = request.getParameter("idusuario");
         request.setAttribute("id", id);
        
+        //Buscamos en la BD si tenemos invitaciones de amigos por aceptar rechazar
         listaI = this.amigoFacade.searchInvitations(new BigDecimal(id));
         request.setAttribute("listaI", listaI);
         
