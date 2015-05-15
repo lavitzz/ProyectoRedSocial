@@ -44,6 +44,16 @@ public class PostFacade extends AbstractFacade<Post> {
         return listaPosts;
     }
     
+    public List<Post> findPostbyAuthorEmail (String correo) {
+        Query q;
+        List<Post> listaPosts;        
+        
+        q = em.createQuery("SELECT p FROM Post p WHERE p.destinatario.correo = :correo ORDER BY p.fecha DESC");
+        q.setParameter("correo", correo);
+        listaPosts = q.getResultList();
+        return listaPosts;
+    }
+    
     public Post insertaPostbyAuthorID (String id, String dest, String texto){
         Query q;
         Usuario user;

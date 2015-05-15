@@ -44,6 +44,7 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         listaAmigos = q.getResultList();
         return listaAmigos;
     }
+
     
     public Amigo createFriend(BigDecimal user, BigDecimal inv){
         Amigo a = new Amigo(user.toBigInteger(),inv.toBigInteger());
