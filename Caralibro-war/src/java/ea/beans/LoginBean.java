@@ -8,8 +8,6 @@ package ea.beans;
 
 import cl.ejb.UsuarioFacade;
 import cl.entity.Usuario;
-import java.math.BigDecimal;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

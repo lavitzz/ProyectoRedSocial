@@ -14,13 +14,14 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author lavitz
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ListaAmigosBean {
     @EJB
     private AmigoFacade amigoFacade;
@@ -28,8 +29,8 @@ public class ListaAmigosBean {
     @ManagedProperty(value="#{loginBean}")
     private LoginBean loginBean;
     
-    List<Usuario> listaAmigos;
-    Usuario AmigoSeleccionado;
+    private List<Usuario> listaAmigos;
+    private Usuario AmigoSeleccionado;
     /**
      * Creates a new instance of ListaAmigosBean
      */
@@ -60,7 +61,7 @@ public class ListaAmigosBean {
         this.loginBean = loginBean;
     }
     
-    public String doVerMuroAmigo(int amigo){
+    public String doVerMuroAmigo(){
         return "VistaMuroAmigo";
     }
     

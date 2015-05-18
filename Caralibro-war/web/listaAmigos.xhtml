@@ -10,7 +10,7 @@
         <h:form>
             <h:dataTable value="#{listaAmigosBean.listaAmigos}" var="amigo" border="1">
             <h:column>
-                <h:commandLink action="#{listaAmigosBean.doVerMuroAmigo(0)}" value="#{amigo.nombre}" >
+                <h:commandLink action="#{listaAmigosBean.doVerMuroAmigo()}" value="#{amigo.nombre}" >
                     <f:setPropertyActionListener target="#{listaAmigosBean.amigoSeleccionado}" value="#{amigo}" />
                  </h:commandLink>
             </h:column>
