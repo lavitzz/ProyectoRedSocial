@@ -38,6 +38,7 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         List<Usuario> listaAmigos;        
         
         q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigoCollection1 a WHERE a.amigoPK.idAmigo = :id AND a.confirmado = 1");
+        //q = em.createQuery("SELECT DISTINCT u FROM Usuario u JOIN u.amigoCollection1 a WHERE a.amigoPK.idAmigo = :id AND a.confirmado = 1 AND u.idUsuario NOT LIKE :id");
         //q = em.createQuery("SELECT u FROM Usuario u WHERE (u.amigoCollection1.usuario.idUsuario = :id OR u.amigoCollection1.usuario1.idUsuario = :id) AND (u.amigoCollection1.confirmado = 1)");
         //q = em.createQuery("SELECT u FROM Usuario u JOIN u.amigoCollection1 a WHERE (a.amigoPK.idAmigo = :id OR a.amigoPK.idUsuario = :id ) AND a.confirmado = 1");
         q.setParameter("id", new BigDecimal(id));
@@ -50,6 +51,12 @@ public class AmigoFacade extends AbstractFacade<Amigo> {
         Amigo a = new Amigo(user.toBigInteger(),inv.toBigInteger());
         a.setConfirmado(BigInteger.ZERO);
         return a;
+    }
+    
+    public void createInv(BigDecimal user, BigDecimal inv){
+        Amigo a = new Amigo(user.toBigInteger(),inv.toBigInteger());
+        a.setConfirmado(BigInteger.ONE);
+        create(a);
     }
     
     public List<Usuario> searchInvitations(BigDecimal id){

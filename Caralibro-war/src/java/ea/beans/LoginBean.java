@@ -11,6 +11,9 @@ import cl.entity.Usuario;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -64,6 +67,12 @@ public class LoginBean {
         else{
             return "index";
         }
+    }
+    
+    public String doCerrarSesion(){
+        HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        sesion.invalidate();
+        return "index";
     }
     
 }
