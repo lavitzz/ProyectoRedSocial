@@ -6,16 +6,15 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Header</title>
     </h:head>
     <h:body>
         <h:form>  
-            <b:navBar brand="CaraLibro" brandHref="#">
+            <b:navBar brand="CaraLibro" brandHref="">
                 <b:navbarLinks>
-                    <b:navLink value="Home" href="/faces/VistaMuroPersonal.xhtml"></b:navLink>
-                    <b:navLink value="Perfil" href="#"></b:navLink>
+                    <b:navLink value="Home" href="/faces/VistaMuroPersonal.xhtml"></b:navLink>
                     <b:navLink value="Notificaciones" href="/faces/VistaNotificaciones.xhtml"></b:navLink>
-    <h:commandLink action="#{loginBean.doCerrarSesion()}">
+                    <h:commandLink action="#{loginBean.doCerrarSesion()}">
                          Logout
                     </h:commandLink>
                 </b:navbarLinks>

@@ -14,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -25,8 +26,11 @@ public class LoginBean {
     @EJB
     private UsuarioFacade usuarioFacade;
     
+    //Validacion fuera del XHTML
     private Usuario user;
+    @NotNull
     private String email;
+    @NotNull
     private String pwd;
 
     /**
