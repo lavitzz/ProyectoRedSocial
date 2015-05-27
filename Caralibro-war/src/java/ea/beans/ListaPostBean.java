@@ -29,6 +29,7 @@ public class ListaPostBean {
     private LoginBean loginBean;
     
     private List<Post> listaPost;
+    private List<Post> listaMisPost;
     /**
      * Creates a new instance of ListaPostBean
      */
@@ -43,6 +44,14 @@ public class ListaPostBean {
         this.listaPost = listaPost;
     }
 
+    public List<Post> getListaMisPost() {
+        return listaMisPost;
+    }
+
+    public void setListaMisPost(List<Post> listaMisPost) {
+        this.listaMisPost = listaMisPost;
+    }
+
     public LoginBean getLoginBean() {
         return loginBean;
     }
@@ -54,6 +63,7 @@ public class ListaPostBean {
     @PostConstruct
     private void init(){
         listaPost = this.postFacade.findPostbyAuthorID(loginBean.getUser().getIdUsuario().toString());
+        listaMisPost = this.postFacade.findPost(loginBean.getUser().getIdUsuario().toString());
     }
     
 }

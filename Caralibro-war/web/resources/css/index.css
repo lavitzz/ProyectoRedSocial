@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-may-2015, 12:58:29
+    Author     : lavitz
+*/
+.ui-panel-titlebar{
+    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0))) !important;
+}
+.ui-button{
+    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0))) !important;
+}
+.ui-panel{
+position: absolute;
+top: 25%;
+left: 25%;
+}
+body {
+  background-color: #A9A9A9;
+}
+
+

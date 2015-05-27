@@ -8,11 +8,20 @@
         <title>Muro Personal</title>
     </h:head>
     <h:body>
-        <ui:include src="/header.xhtml" />
+        <ui:include src="/header2.xhtml" />
         <b:row styleClass="show-grid">
             <b:column col-md="8"><ui:include src="/listaPost.xhtml" /></b:column>
             <b:column col-md="4"><ui:include src="/listaAmigos.xhtml" /></b:column>
         </b:row>
+        <script type="text/javascript">
+        //<![CDATA[
+        function logout(xhr, status, args) {
+          setTimeout(function() {
+            window.location = '/Caralibro-war/faces/index.xhtml';
+          }, 500);
+        }
+        //]]>
+        </script>
     </h:body>
 </html>
 

@@ -24,7 +24,7 @@
                 </p:panel>
         </h:form>
         <h:form id="panelPost">         
-                <h:dataTable value="#{listaPostBean.listaPost}" var="post">
+            <h:dataTable value="#{listaPostBean.listaMisPost}" var="post">
                     <h:column>
                         <b:panel look="primary" title="Autor: #{post.autor.nombre} #{post.autor.apellido}" styleClass="ui-panel" style="width: 450px">
                             #{post.texto}
