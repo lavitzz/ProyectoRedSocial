@@ -1,0 +1,17 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27-may-2015, 18:37:06
+    Author     : lavitz
+*/
+
+.ui-panel{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-right: 150px;
+    margin-left: 50px;
+    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0))) !important;
+}

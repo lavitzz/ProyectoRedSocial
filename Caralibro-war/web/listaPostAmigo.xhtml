@@ -5,23 +5,34 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet library="css" name="listaPost.css"  />
     <h:head>
-        <title>Facelet Title</title>
+        <title>Lista Post</title>
     </h:head>
     <h:body>
-         <h:form>
-            <p:inputTextarea rows="2" cols="25" queryDelay="750" minQueryLength="4" value="#{insertarPostBean.texto}" />
-            <h:commandButton value="Enviar Post" action="#{insertarPostBean.doInsertarAmigo()}" />
-         </h:form>
         <h:form>
-            <h:dataTable value="#{listaPostAmigoBean.listaPost}" var="post">
+            <p:panel style="width:450px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <f:facet name="header">
+                        Enviar Post
+                    </f:facet>
+                    <p:inputTextarea value="#{insertarPostBean.texto}" rows="3" cols="53" required="true" requiredMessage="Es necesario introducir texto en el mensaje"/>
+                    <f:facet name="footer">
+                        <h:commandButton value="Enviar" action="#{insertarPostBean.doInsertarAmigo()}" />
+                    </f:facet>
+                </h:panelGrid>
+                </p:panel>
+        </h:form>
+        <h:form id="panelPost">         
+                <h:dataTable value="#{listaPostAmigoBean.listaPost}" var="post">
                     <h:column>
-                        <b:panel look="primary" title="Autor: #{post.autor.nombre} #{post.autor.apellido}" >
+                        <b:panel look="primary" title="Autor: #{post.autor.nombre} #{post.autor.apellido}" styleClass="ui-panel" style="width: 450px">
                             #{post.texto}
                             <f:facet name="footer"> Fecha: #{post.fecha.toGMTString()}</f:facet>                               
                         </b:panel>   
                     </h:column>
-            </h:dataTable>
+                </h:dataTable>
+          
         </h:form>
     </h:body>
 </html>

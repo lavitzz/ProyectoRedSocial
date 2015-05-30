@@ -2,24 +2,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:outputStylesheet library="css" name="invitaciones.css"  />
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:dataTable value="#{notificacionesBean.listaInvitaciones}" var="invitacion" border="1">
+        <h:form>
+            <h:dataTable value="#{notificacionesBean.listaInvitaciones}" var="invitacion">
                 <h:column>
-                    <b> El usuario #{invitacion.nombre}  #{invitacion.apellido} quiere ser tu amigo </b>
-                    <h:form>
-                    <h:commandButton value="Aceptar" action="#{notificacionesBean.doAceptar()}">
-                        <f:setPropertyActionListener target="#{notificacionesBean.invitacionSeleccionada}" value="#{invitacion}" />
-                    </h:commandButton>
-                    <h:commandButton value="Rechazar" action="#{notificacionesBean.doRechazar()}">
-                        <f:setPropertyActionListener target="#{notificacionesBean.invitacionSeleccionada}" value="#{invitacion}" />
-                    </h:commandButton>
-                    </h:form>
+                    <b:panel look="primary" styleClass="ui-panel" style="width: 450px">
+                        <b> El usuario #{invitacion.nombre}  #{invitacion.apellido} quiere ser tu amigo </b>
+                        <f:facet name="footer"> 
+                            <h:form>
+                                <h:commandButton value="Aceptar" action="#{notificacionesBean.doAceptar()}">
+                                    <f:setPropertyActionListener target="#{notificacionesBean.invitacionSeleccionada}" value="#{invitacion}" />
+                                </h:commandButton>
+                                <h:commandButton value="Rechazar" action="#{notificacionesBean.doRechazar()}">
+                                    <f:setPropertyActionListener target="#{notificacionesBean.invitacionSeleccionada}" value="#{invitacion}" />
+                                </h:commandButton>
+                            </h:form>
+                        </f:facet>                               
+                    </b:panel>   
                 </h:column>
             </h:dataTable>
+        </h:form>
     </h:body>
 </html>
 

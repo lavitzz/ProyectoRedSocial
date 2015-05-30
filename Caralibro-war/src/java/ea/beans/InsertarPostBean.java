@@ -34,6 +34,7 @@ public class InsertarPostBean {
     private ListaAmigosBean listaAmigosBean;
    
     private Usuario destinatario;
+    
     private String texto;
     /**
      * Creates a new instance of InsertarPostBean

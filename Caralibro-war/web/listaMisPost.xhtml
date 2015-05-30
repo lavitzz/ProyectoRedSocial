@@ -16,7 +16,7 @@
                     <f:facet name="header">
                         Enviar Post
                     </f:facet>
-                    <p:inputTextarea value="#{insertarPostBean.texto}" rows="3" cols="53"/>
+                    <p:inputTextarea value="#{insertarPostBean.texto}" rows="3" cols="53" required="true" requiredMessage="Es necesario introducir texto en el mensaje"/>
                     <f:facet name="footer">
                         <h:commandButton value="Enviar" action="#{insertarPostBean.doInsertar()}" />
                     </f:facet>
@@ -32,7 +32,6 @@
                         </b:panel>   
                     </h:column>
                 </h:dataTable>
-          
         </h:form>
     </h:body>
 </html>

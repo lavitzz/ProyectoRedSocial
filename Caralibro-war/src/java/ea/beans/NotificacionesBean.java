@@ -13,9 +13,13 @@ import cl.entity.Usuario;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -103,7 +107,8 @@ public class NotificacionesBean {
         //Actualizamos la lista de invitaciones
         listaInvitaciones = this.amigoFacade.searchInvitations(loginBean.getUser().getIdUsuario());
         //Actualizar la lista de amigos ?¿?¿?¿
-        
+        listaAmigos = this.amigoFacade.findFriendsByID(loginBean.getUser().getIdUsuario().toString());
+        listaAmigosBean.setListaAmigos(listaAmigos);
         //Volvemos a la vista del muro
         return "VistaMuroPersonal";
     }
@@ -113,6 +118,9 @@ public class NotificacionesBean {
         this.amigoFacade.rejectFriend(loginBean.getUser().getIdUsuario().toString(), invitacionSeleccionada.getIdUsuario().toString());
         //Actualizamos la lista de invitaciones
         listaInvitaciones = this.amigoFacade.searchInvitations(loginBean.getUser().getIdUsuario());
+        //Actualizar la lista de amigos ?¿?¿?¿
+        listaAmigos = this.amigoFacade.findFriendsByID(loginBean.getUser().getIdUsuario().toString());
+        listaAmigosBean.setListaAmigos(listaAmigos);
         //Volvemos a la vista del muro
         return "VistaMuroPersonal";
     }
@@ -130,6 +138,22 @@ public class NotificacionesBean {
         }
         correoInvitacion = "";
         return "VistaMuroPersonal";
+    }
+    
+    public void InvitationValidation(FacesContext context, UIComponent componentToValidate, Object value) throws ValidatorException{
+        String correo = value.toString();
+        if (!correo.endsWith(".com")){
+            String messageText = "El correo debe acabar en .com";
+            FacesMessage errorMessage = new FacesMessage(messageText);
+            errorMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(errorMessage);
+        }
+        else{
+            String messageText = "Invitacion enviada con exito";
+            FacesMessage errorMessage = new FacesMessage(messageText);
+            errorMessage.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage(null, errorMessage);
+        }
     }
     
     @PostConstruct

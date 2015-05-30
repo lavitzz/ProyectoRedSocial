@@ -93,7 +93,7 @@ public class LoginBean {
         
     }
     
-     public void login(ActionEvent actionEvent) {
+    public void login(ActionEvent actionEvent) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         this.user = this.usuarioFacade.compruebaUsuario(this.email, this.pwd);
@@ -109,7 +109,7 @@ public class LoginBean {
         if (logueado){
           context.addCallbackParam("view", "/Caralibro-war/faces/VistaMuroPersonal.xhtml");
         }
-  }
+    }
     
     public String doLogout(){
         HttpSession sesion = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);

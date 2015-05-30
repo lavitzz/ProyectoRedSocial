@@ -21,7 +21,7 @@
         </h:dataTable>
         </h:form>
         <h:form>
-            <h:inputText value="#{notificacionesBean.correoInvitacion}" />
+            <h:inputText value="#{notificacionesBean.correoInvitacion}" required="true" requiredMessage="Es necesario introducir el correo" validator="#{notificacionesBean.InvitationValidation}"/>
             <h:commandButton value="Invitar" action="#{notificacionesBean.doEnviarInvitacion()}" />
         </h:form>
     </h:body>
